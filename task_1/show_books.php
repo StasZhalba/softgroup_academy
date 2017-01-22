@@ -6,6 +6,13 @@
  * Time: 18:01
  */
 
+define('BOOKS_FILE_NAME', 'file.txt');
+
+
+show_books_table(get_books_file(BOOKS_FILE_NAME));
+echo '<br>Кількість різних авторів = ' . get_different_authors(get_books_file(BOOKS_FILE_NAME)) . '<br>';
+echo '<br>Всі книги впорядковані за зростанням кількості сторінок у книжці<br>';
+show_books_table(sort_books_pages(get_books_file(BOOKS_FILE_NAME)));
 
 
 
@@ -24,7 +31,6 @@ function get_books_file($file_name){
 
 }
 
-show_books_table(get_books_file('file.txt'));
 
 function show_books_table($books_array){
     echo '<table>';
@@ -34,12 +40,14 @@ function show_books_table($books_array){
     echo '<td>Рік видання</td>';
     echo '<td>Назва видаництва</td>';
     echo '<td>Дата поступлення</td>';
-    foreach ($books_array as $book){
-        echo '<tr>';
-        foreach ($book as $key => $value){
-            echo '<td>' . $value . '</td>';
+    if (!empty($books_array)) {
+        foreach ($books_array as $book) {
+            echo '<tr>';
+            foreach ($book as $key => $value) {
+                echo '<td>' . $value . '</td>';
+            }
+            echo '</tr>';
         }
-        echo '</tr>';
     }
     echo '<table>';
 
@@ -73,19 +81,42 @@ function get_different_authors($array_books){
 
 
 
-function search_books($book_name, $array_books){
+function get_search_books($book_name, $array_books){
+    $books = array();
     if (isset($book_name) & isset($array_books) & !empty($book_name) & !empty($array_books)){
         foreach ($array_books as $book){
             if (strpos($book['name'], $book_name) != false){
-                print_r($book);
-                echo '<br>';
+                array_push($books, $book);
             }
+        }
+    }
+    return $books;
+}
+
+
+function search_books(){
+    if (isset($_POST['submit'])){
+        if (!empty($_POST['search'])){
+            $search_text = $_POST['search'];
+            echo 'Результати пошуку "' .  $search_text . '"<br>';
+            show_books_table(get_search_books($search_text, get_books_file(BOOKS_FILE_NAME)));
         }
     }
 }
 
 
 ?>
+
+<br>
+
+<form method="post">
+    <label for="search">Поле для пошуку</label><br>
+    <input type="search" id="search" name="search"><br>
+    <input type="submit" name="submit" value="Знайти"><br>
+
+</form>
+
+<?php search_books(); ?>
 
 <a href="index.php">Головна сторінка</a>
 

@@ -6,47 +6,50 @@
  * Time: 15:35
  */
 
+function add_books(){
+    if (isset($_POST['submit'])){
+        $book_author = trim($_POST['author']);
+        $book_name = trim($_POST['book_name']);
+        $book_pages = trim($_POST['book_pages']);
+        $book_year = $_POST['book_year'];
+        $book_publisher_name = trim($_POST['book_publisher_name']);
+        $book_receipt = $_POST['book_receipt'];
 
-if (isset($_POST['submit'])){
-    $book_author = trim($_POST['author']);
-    $book_name = trim($_POST['book_name']);
-    $book_pages = trim($_POST['book_pages']);
-    $book_year = $_POST['book_year'];
-    $book_publisher_name = trim($_POST['book_publisher_name']);
-    $book_receipt = $_POST['book_receipt'];
-
-    if (strlen($book_author) <= 5){
-        echo '<p>Імя автора має бути не менше 5 символів</p>';
-    }
-    elseif (empty($book_name)){
-        echo '<p>Назва книги пусте!</p>';
-    }
-    elseif (!is_numeric($book_pages) & $book_pages < 1){
-        echo '<p>Неправильно введено кількість сторінок, ведіть ще раз кількість сторінок!</p>';
-    }
-    elseif (empty(strlen($book_publisher_name))){
-        echo '<p>Назва видавництва пусте. Ведіть видавництво!!!</p>';
-    }
-    elseif (empty($book_receipt)){
-        echo '<p>Дата поступлення не задано!</p>';
-    }
-    else {
-        if (!file_exists("file.txt")) {
-            $myfile = fopen("file.txt", "w");
+        if (strlen($book_author) <= 5){
+            echo '<p>Імя автора має бути не менше 5 символів</p>';
         }
-        file_put_contents("file.txt", "$book_author | $book_name | $book_pages | $book_year | $book_publisher_name | $book_receipt\n", FILE_APPEND);
+        elseif (empty($book_name)){
+            echo '<p>Назва книги пусте!</p>';
+        }
+        elseif (!is_numeric($book_pages) & $book_pages < 1){
+            echo '<p>Неправильно введено кількість сторінок, ведіть ще раз кількість сторінок!</p>';
+        }
+        elseif (empty(strlen($book_publisher_name))){
+            echo '<p>Назва видавництва пусте. Ведіть видавництво!!!</p>';
+        }
+        elseif (empty($book_receipt)){
+            echo '<p>Дата поступлення не задано!</p>';
+        }
+        else {
+            if (!file_exists("file.txt")) {
+                $myfile = fopen("file.txt", "w");
+            }
+            file_put_contents("file.txt", "$book_author | $book_name | $book_pages | $book_year | $book_publisher_name | $book_receipt\n", FILE_APPEND);
+        }
+
     }
+    else{
+        $book_author = '';
+        $book_name = '';
+        $book_pages =  '';
+        $book_year = '';
+        $book_publisher_name = '';
+        $book_receipt = '';
 
+    }
 }
-else{
-    $book_author = '';
-    $book_name = '';
-    $book_pages =  '';
-    $book_year = '';
-    $book_publisher_name = '';
-    $book_receipt = '';
 
-}
+add_books();
 
 
 ?>
