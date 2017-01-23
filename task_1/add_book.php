@@ -6,6 +6,8 @@
  * Time: 15:35
  */
 
+require_once ('constants.php');
+
 function add_books(){
     if (isset($_POST['submit'])){
         $book_author = trim($_POST['author']);
@@ -31,10 +33,11 @@ function add_books(){
             echo '<p>Дата поступлення не задано!</p>';
         }
         else {
-            if (!file_exists("file.txt")) {
-                $myfile = fopen("file.txt", "w");
+            if (!file_exists(BOOKS_FILE_NAME)) {
+                fopen(BOOKS_FILE_NAME, "w");
             }
-            file_put_contents("file.txt", "$book_author | $book_name | $book_pages | $book_year | $book_publisher_name | $book_receipt\n", FILE_APPEND);
+            file_put_contents(BOOKS_FILE_NAME, "$book_author | $book_name | $book_pages | $book_year | $book_publisher_name | $book_receipt\n", FILE_APPEND);
+            echo '<h1> Книга добавлена в список</h1>';
         }
 
     }

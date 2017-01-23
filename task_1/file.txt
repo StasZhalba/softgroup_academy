@@ -2,3 +2,6 @@ StasZhalba | Test1 | 4 | 1907 | Windows | 2017-01-18
 AtasZhalba | Test2 | 5 | 1907 | Windows | 2017-01-18
 CtasZhalba | Test3 | 2 | 1907 | Windows | 2017-01-18
 CtasZhalba | Test3 | 2 | 1907 | Windows | 2017-01-18
+Adam Walker | The Home | 534 | 2013 | USA | 2017-01-11
+Erik Larson | Isaac's Storm: A Man, a Time, and the Deadliest Hurricane in History | 177 | 1900 | Paperback | 2017-01-02
+Erik Larson | Isaac's Storm: A Man, a Time, and the Deadliest Hurricane in History | 177 | 1900 | Paperback | 2017-01-02

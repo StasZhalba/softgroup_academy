@@ -6,8 +6,7 @@
  * Time: 18:01
  */
 
-define('BOOKS_FILE_NAME', 'file.txt');
-
+require_once ('constants.php');
 
 show_books_table(get_books_file(BOOKS_FILE_NAME));
 echo '<br>Кількість різних авторів = ' . get_different_authors(get_books_file(BOOKS_FILE_NAME)) . '<br>';
@@ -81,11 +80,12 @@ function get_different_authors($array_books){
 
 
 
-function get_search_books($book_name, $array_books){
+function get_search_books($search_text, $array_books){
     $books = array();
-    if (isset($book_name) & isset($array_books) & !empty($book_name) & !empty($array_books)){
+    if (isset($search_text) & isset($array_books) & !empty($search_text) & !empty($array_books)){
         foreach ($array_books as $book){
-            if (strpos($book['name'], $book_name) != false){
+            $search_text_lower = mb_strtolower($search_text);
+            if (strpos(mb_strtolower($book['name']), $search_text_lower) != false){
                 array_push($books, $book);
             }
         }
