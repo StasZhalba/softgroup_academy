@@ -41,15 +41,6 @@ function add_books(){
         }
 
     }
-    else{
-        $book_author = '';
-        $book_name = '';
-        $book_pages =  '';
-        $book_year = '';
-        $book_publisher_name = '';
-        $book_receipt = '';
-
-    }
 }
 
 add_books();
