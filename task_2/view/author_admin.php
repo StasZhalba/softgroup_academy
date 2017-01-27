@@ -11,15 +11,10 @@ require_once('data.php');
 
 
 //add_author_to_db('Jjkdaskf', 'jdaskfj', 'fjasjhf', 232, 2012, 'adfas', '2016-02-12');
+?>
 
 
-
-
-
-
-function form_add_author_HTML(){
-    echo '
-    <form method="post">
+<form method="post">
     <label for="surname">Прізвище </label><br>
     <input type="text" id="surname" name="surname"><br>
     <label for="name">І\'мя</label><br>
@@ -30,7 +25,7 @@ function form_add_author_HTML(){
             var myDate = new Date();
             var year = myDate.getFullYear();
             for(var i = 1800; i < year+1; i++){
-                document.write(\'<option value="\'+i+\'">\'+i+\'</option>\');
+                document.write('<option value="\'+i+\'">'+i+'</option>');
             }
         </script>
     </select>
@@ -47,11 +42,9 @@ function form_add_author_HTML(){
         </script>
     </select>
     <br>
-    <label for="country">Громадянство</label><br>' . country_list_HTML() . '<br></form>';
-}
+    }
 
 
 
-?>
 
 

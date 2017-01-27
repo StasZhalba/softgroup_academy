@@ -6,6 +6,8 @@
  * Time: 19:19
  */
 
+require_once ('../config.php');
+
 function add_book_to_db($author_name, $book_name, $genre, $pages, $publisher_year, $edition, $receipt){
     if (validation_author($author_name, $book_name, $genre, $pages, $publisher_year,
         $edition, $receipt)){
@@ -58,3 +60,51 @@ function books_all(){
     $mysqli->close();
     return $books;
 }
+
+function search_book($book_search)
+{
+    if (!empty($book_search)) {
+        $search_query = "SELECT * FROM book";
+        $clean_search = str_replace(',', ' ', $book_search);
+        $search_words = explode(' ', $clean_search);
+        $final_search_words = array();
+        if (count($search_words) > 0) {
+            foreach ($search_words as $word) {
+                if (!empty($word)) {
+                    $final_search_words[] = $word;
+                }
+            }
+        }
+        if (count($final_search_words) > 0) {
+            foreach ($final_search_words as $word) {
+                $where_list[] = "book_name LIKE '%$word%'";
+            }
+            $where_clause = implode(' OR ', $where_list);
+        }
+        if (!empty($where_clause)) {
+            $search_query .= " WHERE $where_clause";
+        }
+
+        $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        $mysqli->set_charset("utf8");
+        if (mysqli_connect_errno()) {
+            printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
+            exit;
+        }
+
+        if ($result = $mysqli->query($search_query)) {
+            $books = array();
+            while ($row = $result->fetch_assoc()) {
+                $books[] = $row;
+            }
+            $result->close();
+        }
+        $mysqli->close();
+        return $books;
+    }
+    else {
+        return null;
+    }
+}
+
+var_dump(search_book('піс'));
