@@ -35,9 +35,9 @@ require_once('data.php');
         <script>
             var myDate = new Date();
             var year = myDate.getFullYear();
-            document.write(\'<option value=""></option>\');
+            document.write('<option value=""></option>');
             for(var i = 1810; i < year+1; i++){
-                document.write(\'<option value="\'+i+\'">\'+i+\'</option>\');
+                document.write('<option value="\'+i+\'">'+i+'</option>');
             }
         </script>
     </select>
