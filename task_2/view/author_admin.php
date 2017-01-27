@@ -10,7 +10,6 @@ require_once('validation.php');
 require_once('data.php');
 
 
-//add_author_to_db('Jjkdaskf', 'jdaskfj', 'fjasjhf', 232, 2012, 'adfas', '2016-02-12');
 ?>
 
 
