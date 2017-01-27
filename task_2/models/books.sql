@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 27 2017 г., 14:10
+-- Время создания: Янв 27 2017 г., 20:28
 -- Версия сервера: 10.1.19-MariaDB
 -- Версия PHP: 7.0.13
 
@@ -23,33 +23,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `address`
---
-
-CREATE TABLE `address` (
-  `address_id` int(11) NOT NULL,
-  `country` int(11) NOT NULL,
-  `city` int(11) NOT NULL,
-  `street` varchar(20) NOT NULL,
-  `home` int(11) NOT NULL,
-  `postal_index` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `address`
---
-
-INSERT INTO `address` (`address_id`, `country`, `city`, `street`, `home`, `postal_index`) VALUES
-(1, 1, 3, 'Головна', 12, 60254);
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `author`
 --
 
 CREATE TABLE `author` (
-  `audthor_id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
   `author_surname` varchar(20) NOT NULL,
   `author_name` varchar(20) NOT NULL,
   `author_year_of_birth` int(4) NOT NULL,
@@ -61,7 +39,7 @@ CREATE TABLE `author` (
 -- Дамп данных таблицы `author`
 --
 
-INSERT INTO `author` (`audthor_id`, `author_surname`, `author_name`, `author_year_of_birth`, `author_death`, `author_country`) VALUES
+INSERT INTO `author` (`author_id`, `author_surname`, `author_name`, `author_year_of_birth`, `author_death`, `author_country`) VALUES
 (1, 'Українка', 'Леся', 1923, 1975, 1);
 
 -- --------------------------------------------------------
@@ -136,7 +114,11 @@ INSERT INTO `country` (`country_id`, `country_name`) VALUES
 CREATE TABLE `edition` (
   `edition_id` int(11) NOT NULL,
   `edition_name` varchar(30) NOT NULL,
-  `edition_address` int(11) NOT NULL,
+  `edition_country` int(11) NOT NULL,
+  `edition_city` int(11) NOT NULL,
+  `edition_street` int(11) NOT NULL,
+  `edition_home` int(11) NOT NULL,
+  `edition_ZIP` int(5) NOT NULL,
   `contact_person` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -144,8 +126,8 @@ CREATE TABLE `edition` (
 -- Дамп данных таблицы `edition`
 --
 
-INSERT INTO `edition` (`edition_id`, `edition_name`, `edition_address`, `contact_person`) VALUES
-(1, 'Море', 1, 1);
+INSERT INTO `edition` (`edition_id`, `edition_name`, `edition_country`, `edition_city`, `edition_street`, `edition_home`, `edition_ZIP`, `contact_person`) VALUES
+(1, 'Море', 1, 3, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -175,7 +157,6 @@ CREATE TABLE `person` (
   `person_id` int(11) NOT NULL,
   `person_name` varchar(20) NOT NULL,
   `person_surname` varchar(20) NOT NULL,
-  `person_address` int(11) NOT NULL,
   `phone_number` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -183,29 +164,20 @@ CREATE TABLE `person` (
 -- Дамп данных таблицы `person`
 --
 
-INSERT INTO `person` (`person_id`, `person_name`, `person_surname`, `person_address`, `phone_number`) VALUES
-(1, 'Іван', 'Іванов', 1, '098649986');
+INSERT INTO `person` (`person_id`, `person_name`, `person_surname`, `phone_number`) VALUES
+(1, 'Іван', 'Іванов', '098649986');
 
 --
 -- Индексы сохранённых таблиц
 --
 
 --
--- Индексы таблицы `address`
---
-ALTER TABLE `address`
-  ADD PRIMARY KEY (`address_id`),
-  ADD UNIQUE KEY `country` (`country`),
-  ADD UNIQUE KEY `city` (`city`),
-  ADD KEY `address_id` (`address_id`);
-
---
 -- Индексы таблицы `author`
 --
 ALTER TABLE `author`
-  ADD PRIMARY KEY (`audthor_id`),
+  ADD PRIMARY KEY (`author_id`),
   ADD UNIQUE KEY `author_country` (`author_country`),
-  ADD KEY `audthor_id` (`audthor_id`);
+  ADD KEY `audthor_id` (`author_id`);
 
 --
 -- Индексы таблицы `book`
@@ -235,9 +207,11 @@ ALTER TABLE `country`
 --
 ALTER TABLE `edition`
   ADD PRIMARY KEY (`edition_id`),
-  ADD UNIQUE KEY `edition_address` (`edition_address`),
+  ADD UNIQUE KEY `edition_address` (`edition_country`),
   ADD UNIQUE KEY `contact_person` (`contact_person`),
-  ADD KEY `edition_id` (`edition_id`);
+  ADD KEY `edition_id` (`edition_id`),
+  ADD KEY `edition_address_2` (`edition_country`),
+  ADD KEY `edition_city` (`edition_city`);
 
 --
 -- Индексы таблицы `genre`
@@ -251,7 +225,6 @@ ALTER TABLE `genre`
 --
 ALTER TABLE `person`
   ADD PRIMARY KEY (`person_id`),
-  ADD UNIQUE KEY `person_address` (`person_address`),
   ADD KEY `person_id` (`person_id`);
 
 --
@@ -259,15 +232,10 @@ ALTER TABLE `person`
 --
 
 --
--- AUTO_INCREMENT для таблицы `address`
---
-ALTER TABLE `address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT для таблицы `author`
 --
 ALTER TABLE `author`
-  MODIFY `audthor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `book`
 --
@@ -303,13 +271,6 @@ ALTER TABLE `person`
 --
 
 --
--- Ограничения внешнего ключа таблицы `address`
---
-ALTER TABLE `address`
-  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`country`) REFERENCES `country` (`country_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `address_ibfk_2` FOREIGN KEY (`city`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Ограничения внешнего ключа таблицы `author`
 --
 ALTER TABLE `author`
@@ -319,7 +280,7 @@ ALTER TABLE `author`
 -- Ограничения внешнего ключа таблицы `book`
 --
 ALTER TABLE `book`
-  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`book_author`) REFERENCES `author` (`audthor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`book_author`) REFERENCES `author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `book_ibfk_2` FOREIGN KEY (`book_genre`) REFERENCES `genre` (`genre_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `book_ibfk_3` FOREIGN KEY (`book_edition`) REFERENCES `edition` (`edition_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -327,14 +288,7 @@ ALTER TABLE `book`
 -- Ограничения внешнего ключа таблицы `edition`
 --
 ALTER TABLE `edition`
-  ADD CONSTRAINT `edition_ibfk_1` FOREIGN KEY (`contact_person`) REFERENCES `person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `edition_ibfk_2` FOREIGN KEY (`edition_address`) REFERENCES `address` (`address_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `person`
---
-ALTER TABLE `person`
-  ADD CONSTRAINT `person_ibfk_1` FOREIGN KEY (`person_address`) REFERENCES `address` (`address_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `edition_ibfk_1` FOREIGN KEY (`contact_person`) REFERENCES `person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
