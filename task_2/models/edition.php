@@ -26,3 +26,22 @@ function add_edition($name, $country, $city, $home, $ZIP, $contact_person){
 
     $mysqli->close();
 }
+
+function edition_all(){
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $mysqli->set_charset("utf8");
+    if (mysqli_connect_errno()){
+        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
+        exit;
+    }
+
+    if ($result = $mysqli->query('SELECT * FROM edition;')){
+        $editions = array();
+        while ($row = $result->fetch_assoc()){
+            $editions[] = $row;
+        }
+        $result->close();
+    }
+    $mysqli->close();
+    return $editions;
+}
