@@ -27,6 +27,19 @@ function add_edition($name, $country, $city, $home, $ZIP, $contact_person){
     $mysqli->close();
 }
 
+function delete_edition($id){
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    if (mysqli_connect_errno()){
+        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
+        exit;
+    }
+
+    if (is_numeric($id)) {
+        $mysqli->query("DELETE FROM edition WHERE id='$id';");
+    }
+    $mysqli->close();
+}
+
 function edition_all(){
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $mysqli->set_charset("utf8");
