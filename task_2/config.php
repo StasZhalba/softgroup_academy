@@ -6,7 +6,7 @@
  * Time: 15:30
  */
 
-define('DB_NAME', '');
-define('DB_HOST', '');
-define('DB_NAME', '');
+define('DB_NAME', 'books');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
 define('DB_PASSWORD', '');
