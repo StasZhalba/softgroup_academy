@@ -14,8 +14,7 @@ function authors_all(){
         exit;
     }
 
-    if ($result = $mysqli->query('SELECT author_id, author_surname, author_name FROM author 
-ORDER BY author_surname, author_name ASC ;')){
+    if ($result = $mysqli->query('SELECT * FROM author ORDER BY author_surname, author_name ASC ;')){
         $authors = array();
         while ($row = $result->fetch_assoc()){
             $authors[] = $row;

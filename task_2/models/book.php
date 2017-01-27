@@ -26,3 +26,35 @@ function add_book_to_db($author_name, $book_name, $genre, $pages, $publisher_yea
         $mysqli->close();
     }
 }
+
+function delete_book($id){
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    if (mysqli_connect_errno()){
+        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
+        exit;
+    }
+
+    if (is_numeric($id)) {
+        $mysqli->query("DELETE FROM book WHERE id='$id';");
+    }
+    $mysqli->close();
+}
+
+function books_all(){
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $mysqli->set_charset("utf8");
+    if (mysqli_connect_errno()){
+        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
+        exit;
+    }
+
+    if ($result = $mysqli->query('SELECT * FROM book;')){
+        $books = array();
+        while ($row = $result->fetch_assoc()){
+            $books[] = $row;
+        }
+        $result->close();
+    }
+    $mysqli->close();
+    return $books;
+}
