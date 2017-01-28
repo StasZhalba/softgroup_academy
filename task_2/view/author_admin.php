@@ -5,8 +5,8 @@
  * Date: 26.01.2017
  * Time: 15:56
  */
-require_once('config.php');
-require_once('validation.php');
+require_once('../config.php');
+require_once('../models/validation.php');
 require_once('data.php');
 
 

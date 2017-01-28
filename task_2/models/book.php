@@ -64,7 +64,11 @@ function books_all(){
 function search_book($book_search)
 {
     if (!empty($book_search)) {
-        $search_query = "SELECT * FROM book";
+        $search_query = "SELECT book.book_id, author.author_surname, book.book_name, genre.genre_name, 
+                          book.book_pages, book.book_publisher_year, edition.edition_name, book.book_receipt FROM book
+                          INNER JOIN author ON book.book_author=author.author_id
+                          INNER JOIN genre ON book.book_genre=genre.genre_id
+                          INNER JOIN edition ON book.book_edition=edition.edition_id ";
         $clean_search = str_replace(',', ' ', $book_search);
         $search_words = explode(' ', $clean_search);
         $final_search_words = array();
@@ -77,7 +81,7 @@ function search_book($book_search)
         }
         if (count($final_search_words) > 0) {
             foreach ($final_search_words as $word) {
-                $where_list[] = "book_name LIKE '%$word%'";
+                $where_list[] = "book_name LIKE '%$word%' OR genre_name LIKE '%$word%' OR edition_name LIKE '%$word%'";
             }
             $where_clause = implode(' OR ', $where_list);
         }
@@ -107,4 +111,3 @@ function search_book($book_search)
     }
 }
 
-var_dump(search_book('піс'));
