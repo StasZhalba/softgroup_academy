@@ -7,54 +7,37 @@
  */
 
 
-function add_edition($name, $country, $city, $home, $ZIP, $contact_person){
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $mysqli->set_charset("utf8");
-    if (mysqli_connect_errno()){
-        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
-        exit;
-    }
-    $country = mysqli_real_escape_string($mysqli, trim($country));
-    $name = mysqli_real_escape_string($mysqli, trim($name));
-    $city = mysqli_real_escape_string($mysqli, trim($city));
-    $home = mysqli_real_escape_string($mysqli, trim($home));
-    $ZIP = mysqli_real_escape_string($mysqli, trim($ZIP));
-    $contact_person = mysqli_real_escape_string($mysqli, trim($contact_person));
+function add_edition($link, $name, $country, $city, $home, $ZIP, $contact_person){
 
-    $mysqli->query("INSERT INTO edition (edition_name, edition_country, edition_city, edition_street, 
+    $country = mysqli_real_escape_string($link, trim($country));
+    $name = mysqli_real_escape_string($link, trim($name));
+    $city = mysqli_real_escape_string($link, trim($city));
+    $home = mysqli_real_escape_string($link, trim($home));
+    $ZIP = mysqli_real_escape_string($link, trim($ZIP));
+    $contact_person = mysqli_real_escape_string($link, trim($contact_person));
+
+    $result = mysqli_query($link, "INSERT INTO edition (edition_name, edition_country, edition_city, edition_street, 
                           edition_home, edition_ZIP, contact_person) VALUES ('$name', '$country', '$city', '$home', '$ZIP', '$contact_person');");
 
-    $mysqli->close();
+    if (!$result){
+        die(mysqli_error($link));
+    }
 }
 
-function delete_edition($id){
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    if (mysqli_connect_errno()){
-        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
-        exit;
-    }
-
+function delete_edition($link, $id){
     if (is_numeric($id)) {
-        $mysqli->query("DELETE FROM edition WHERE id='$id';");
+        mysqli_query("DELETE FROM edition WHERE id='$id';");
     }
-    $mysqli->close();
+    mysqli_close($link);
 }
 
-function edition_all(){
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $mysqli->set_charset("utf8");
-    if (mysqli_connect_errno()){
-        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
-        exit;
-    }
-
-    if ($result = $mysqli->query('SELECT * FROM edition;')){
+function edition_all($link){
+    if ($result = mysqli_query($link, 'SELECT * FROM edition;')){
         $editions = array();
-        while ($row = $result->fetch_assoc()){
+        while ($row = mysqli_fetch_assoc($result)){
             $editions[] = $row;
         }
-        $result->close();
     }
-    $mysqli->close();
+    mysqli_close($link);
     return $editions;
 }

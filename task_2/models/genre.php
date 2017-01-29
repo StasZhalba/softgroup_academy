@@ -8,21 +8,13 @@
 
 require_once ('database.php');
 
-function genres_all(){
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $mysqli->set_charset("utf8");
-    if (mysqli_connect_errno()){
-        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
-        exit;
-    }
-
-    if ($result = $mysqli->query('SELECT * FROM genre;')){
+function genres_all($link){
+    if ($result = mysqli_query($link, 'SELECT * FROM genre;')){
         $genres = array();
-        while ($row = $result->fetch_assoc()){
+        while ($row = mysqli_fetch_assoc($result)){
             $genres[] = $row;
         }
-        $result->close();
     }
-    $mysqli->close();
+    mysqli_close($link);
     return $genres;
 }
