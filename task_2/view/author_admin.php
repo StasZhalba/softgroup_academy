@@ -1,22 +1,8 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Stas Jalba
- * Date: 26.01.2017
- * Time: 15:56
- */
-require_once('../config.php');
-require_once('../models/validation.php');
-require_once('data.php');
-
-
-?>
-
 
 <form method="post">
     <label for="surname">Прізвище </label><br>
     <input type="text" id="surname" name="surname"><br>
-    <label for="name">І\'мя</label><br>
+    <label for="name">І'мя</label><br>
     <input type="text" id="name" name="name"><br>
     <label for="year_birth">Рік народження</label><br>
     <select id="year_birth" name="year_birth">
@@ -41,7 +27,6 @@ require_once('data.php');
         </script>
     </select>
     <br>
-    }
 
 
 

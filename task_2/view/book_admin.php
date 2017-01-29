@@ -1,22 +1,21 @@
-<?php
-require_once ('../models/author.php');
-?>
-
 <form method="post">
     <label for="authors">Автор</label><br>
     <select name="authors" id="authors">
         <?php
-        foreach (authors_all() as $author){
+        foreach ($authors as $author){
             echo '<option value="'. $author['author_id'] .'">'. $author['author_surname'] . ' ' . $author['author_name'] .'</option>';
         }
         ?>
-        <option>hjkjhk</option>
     </select><br>
     <label for="book_name">Назва книги</label><br>
     <input type="text" id="book_name" name="book_name"><br>
     <label for="genre">Жанр</label><br>
     <select name="genre" id="genre">
-        <option value=""></option>
+        <?php
+        foreach ($genres as $genre){
+            echo '<option value="'. $genre['genre_id'] .'">' . $genre['genre_name'] . '</option>';
+        }
+        ?>
     </select>
     <br>
     <label for="pages">Кількість сторінок</label><br>
@@ -34,9 +33,14 @@ require_once ('../models/author.php');
     <br>
     <label for="edition">Видавництво</label><br>
     <select id="edition" name="edition">
-        <option value=""></option>
+        <?php
+        foreach ($editions as $edition){
+            echo '<option value="'. $edition['edition_id'] .'">' . $edition['edition_name'] . '</option>';
+        }
+        ?>
     </select>
     <br>
     <label for="book_receipt">Дата поступлення: </label>
-    <input type="date" id="book_receipt" name="book_receipt" max="<?php echo date("Y-m-d"); ?>"><br>
+    <input type="date" id="book_receipt" name="book_receipt" min="1800-01-01" max="<?php echo date("Y-m-d"); ?>"><br>
+    <input type="submit" name="submit" value="Добавити">
 </form>
