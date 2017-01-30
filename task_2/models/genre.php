@@ -6,7 +6,6 @@
  * Time: 11:58
  */
 
-require_once ('database.php');
 
 function genres_all($link){
     if ($result = mysqli_query($link, 'SELECT * FROM genre;')){
@@ -15,6 +14,5 @@ function genres_all($link){
             $genres[] = $row;
         }
     }
-    mysqli_close($link);
     return $genres;
 }

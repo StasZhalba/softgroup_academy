@@ -28,7 +28,6 @@ function delete_edition($link, $id){
     if (is_numeric($id)) {
         mysqli_query("DELETE FROM edition WHERE id='$id';");
     }
-    mysqli_close($link);
 }
 
 function edition_all($link){
@@ -38,6 +37,6 @@ function edition_all($link){
             $editions[] = $row;
         }
     }
-    mysqli_close($link);
     return $editions;
 }
+

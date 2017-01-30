@@ -6,7 +6,7 @@
  * Time: 19:19
  */
 
-
+require_once ('validation.php');
 
 function add_book_to_db($link, $author_name, $book_name, $genre, $pages, $publisher_year, $edition, $receipt){
     if (validation_author($author_name, $book_name, $genre, $pages, $publisher_year,
@@ -17,7 +17,7 @@ function add_book_to_db($link, $author_name, $book_name, $genre, $pages, $publis
         $genre = mysqli_real_escape_string($link, trim($genre));
         $edition = mysqli_real_escape_string($link, trim($edition));
 
-        $result = mysqli_query($link, "INSERT INTO book (book_author, book_name, book_genre, book_page, book_publiher_year, 
+        $result = mysqli_query($link, "INSERT INTO book (book_author, book_name, book_genre, book_pages, book_publisher_year, 
                         book_edition, book_receipt) VALUES ('$author_name', '$book_name', '$genre', 
                         '$pages', '$publisher_year', '$edition', '$receipt');");
         if (!$result){
@@ -37,8 +37,8 @@ function delete_book($link, $id){
 }
 
 function books_all($link){
-    if ($result = mysqli_query($link, 'SELECT book.book_id, author.author_surname, book.book_name, genre.genre_name, 
-                          book.book_pages, book.book_publisher_year, edition.edition_name, book.book_receipt FROM book
+    if ($result = mysqli_query($link, 'SELECT book.book_id, author.author_id, author.author_surname, author.author_name, book.book_name, genre.genre_name, 
+                          book.book_pages, book.book_publisher_year, edition.edition_id, edition.edition_name, book.book_receipt FROM book
                           INNER JOIN author ON book.book_author=author.author_id
                           INNER JOIN genre ON book.book_genre=genre.genre_id
                           INNER JOIN edition ON book.book_edition=edition.edition_id;')){
@@ -47,13 +47,8 @@ function books_all($link){
             $books[] = $row;
         }
     }
-    mysqli_close($link);
     return $books;
 }
-
-require_once ('../database.php');
-
-$link = db_connect();
 
 
 
@@ -70,7 +65,6 @@ function get_books_author($link, $id){
         }
     }
 
-    mysqli_close($link);
 
     return $books;
 }

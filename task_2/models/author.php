@@ -23,7 +23,6 @@ function add_author_to_db($link, $surname, $name, $year_of_birth, $year_of_death
     if (!$result)
         die(mysqli_errno($link));
 
-
 }
 
 function delete_author($link, $id){
@@ -32,6 +31,7 @@ function delete_author($link, $id){
     }
     if (!$result)
         die(mysqli_errno($link));
+
 }
 
 
