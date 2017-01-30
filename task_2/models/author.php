@@ -15,10 +15,9 @@ function add_author_to_db($link, $surname, $name, $year_of_birth, $year_of_death
     $name = mysqli_real_escape_string($link, trim($name));
     $country = mysqli_real_escape_string($link, trim($country));
 
-    if ($year_of_death == null | empty($year_of_death)) {
-        $result = mysqli_query($link, "INSERT INTO author (author_surname, author_name, author_year_of_birth, author_death, 
+    $result = mysqli_query($link, "INSERT INTO author (author_surname, author_name, author_year_of_birth, author_death, 
                           author_country) VALUES ('$surname', '$name', '$year_of_birth', '$year_of_death', '$country');");
-    }
+
 
     if (!$result)
         die(mysqli_errno($link));
@@ -27,7 +26,7 @@ function add_author_to_db($link, $surname, $name, $year_of_birth, $year_of_death
 
 function delete_author($link, $id){
     if (is_numeric($id)) {
-        $result = mysqli_query($link, "DELETE FROM author WHERE id='$id';");
+        $result = mysqli_query($link, "DELETE FROM author WHERE author_id='$id';");
     }
     if (!$result)
         die(mysqli_errno($link));

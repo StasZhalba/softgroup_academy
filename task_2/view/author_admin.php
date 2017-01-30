@@ -10,22 +10,33 @@
             var myDate = new Date();
             var year = myDate.getFullYear();
             for(var i = 1800; i < year+1; i++){
-                document.write('<option value="\'+i+\'">'+i+'</option>');
+                document.write('<option value="'+i+'">'+i+'</option>');
             }
         </script>
     </select>
     <br>
     <label for="year_death">Рік смерті(може бути пусто)</label><br>
-    <select id="year_birth" name="year_birth">
+    <select id="year_death" name="year_death">
         <script>
             var myDate = new Date();
             var year = myDate.getFullYear();
             document.write('<option value=""></option>');
             for(var i = 1810; i < year+1; i++){
-                document.write('<option value="\'+i+\'">'+i+'</option>');
+                document.write('<option value="'+i+'">'+i+'</option>');
             }
         </script>
     </select>
+    <br>
+    <label for="country">Країна</label><br>
+    <select id="country" name="country">
+        <?php
+        foreach ($countries as $country){
+            echo '<option value="' . $country['country_id'] . '">'. $country['country_name'] . '</option>';
+        }
+        ?>
+    </select>
+    <input type="submit" name="submit" value="Добавити">
+    <br>
     <br>
 
 

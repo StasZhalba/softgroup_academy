@@ -28,7 +28,7 @@ function add_book_to_db($link, $author_name, $book_name, $genre, $pages, $publis
 
 function delete_book($link, $id){
     if (is_numeric($id)) {
-        $result = mysqli_query($link, "DELETE FROM book WHERE id='$id';");
+        $result = mysqli_query($link, "DELETE FROM book WHERE book_id='$id';");
     }
 
     if ($result){
@@ -54,8 +54,8 @@ function books_all($link){
 
 function get_books_author($link, $id){
 
-    if ($result = mysqli_query($link, "SELECT book.book_id, author.author_surname, book.book_name, genre.genre_name, 
-                          book.book_pages, book.book_publisher_year, edition.edition_name, book.book_receipt FROM book
+    if ($result = mysqli_query($link, "SELECT book.book_id, author.author_id, author.author_surname, author.author_name, book.book_name, genre.genre_name, 
+                          book.book_pages, book.book_publisher_year, edition.edition_id, edition.edition_name, book.book_receipt FROM book
                           INNER JOIN author ON book.book_author=author.author_id
                           INNER JOIN genre ON book.book_genre=genre.genre_id
                           INNER JOIN edition ON book.book_edition=edition.edition_id WHERE book.book_author = '$id';")){
@@ -69,16 +69,11 @@ function get_books_author($link, $id){
     return $books;
 }
 
-function get_books_edition($id){
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $mysqli->set_charset("utf8");
-    if (mysqli_connect_errno()){
-        printf("Неможливо підключитись до бази даних. Код помилки: %s\n", mysqli_connect_error());
-        exit;
-    }
+function get_books_edition($link, $id){
 
-    if ($result = $mysqli->query("SELECT book.book_id, author.author_surname, book.book_name, genre.genre_name, 
-                          book.book_pages, book.book_publisher_year, edition.edition_name, book.book_receipt FROM book
+
+    if ($result = mysqli_query($link, "SELECT book.book_id, author.author_id, author.author_surname, author.author_name, book.book_name, genre.genre_name, 
+                          book.book_pages, book.book_publisher_year, edition.edition_id, edition.edition_name, book.book_receipt FROM book
                           INNER JOIN author ON book.book_author=author.author_id
                           INNER JOIN genre ON book.book_genre=genre.genre_id
                           INNER JOIN edition ON book.book_edition=edition.edition_id WHERE book.book_edition = '$id';")){
@@ -86,17 +81,15 @@ function get_books_edition($id){
         while ($row = $result->fetch_assoc()){
             $books[] = $row;
         }
-        $result->close();
     }
-    $mysqli->close();
     return $books;
 }
 
-function search_book($link, $book_search, $sort)
+function search_book($link, $book_search)
 {
     if (!empty($book_search)) {
-        $search_query = "SELECT book.book_id, author.author_surname, book.book_name, genre.genre_name, 
-                          book.book_pages, book.book_publisher_year, edition.edition_name, book.book_receipt FROM book
+        $search_query = "SELECT book.book_id, author.author_id, author.author_surname, author.author_name, book.book_name, genre.genre_name, 
+                          book.book_pages, book.book_publisher_year, edition.edition_id, edition.edition_name, book.book_receipt FROM book
                           INNER JOIN author ON book.book_author=author.author_id
                           INNER JOIN genre ON book.book_genre=genre.genre_id
                           INNER JOIN edition ON book.book_edition=edition.edition_id ";
@@ -121,36 +114,6 @@ function search_book($link, $book_search, $sort)
         }
 
 
-        switch ($sort) {
-            // Ascending by job title
-            case 1:
-                $search_query .= " ORDER BY author_surname";
-                break;
-            // Descending by job title
-            case 2:
-                $search_query .= " ORDER BY book_name";
-                break;
-            // Ascending by state
-            case 3:
-                $search_query .= " ORDER BY genre_name";
-                break;
-            // Descending by state
-            case 4:
-                $search_query .= " ORDER BY book_pages";
-                break;
-            // Ascending by date posted (oldest first)
-            case 5:
-                $search_query .= " ORDER BY book_publisher_year";
-                break;
-            // Descending by date posted (newest first)
-            case 6:
-                $search_query .= " ORDER BY edition_name";
-                break;
-            case 7:
-                $search_query .= " ORDER BY book_receipt";
-            default:
-                // No sort setting provided, so don't sort the query
-        }
 
 
         if ($result = mysqli_query($link, $search_query)) {
@@ -159,7 +122,6 @@ function search_book($link, $book_search, $sort)
                 $books[] = $row;
             }
         }
-        mysqli_close($link);
 
         return $books;
     }

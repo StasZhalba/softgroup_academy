@@ -7,17 +7,14 @@
  */
 
 
-function add_edition($link, $name, $country, $city, $home, $ZIP, $contact_person){
+function add_edition($link, $name, $address, $ZIP, $contact_person){
 
-    $country = mysqli_real_escape_string($link, trim($country));
+    $address = mysqli_real_escape_string($link, trim($address));
     $name = mysqli_real_escape_string($link, trim($name));
-    $city = mysqli_real_escape_string($link, trim($city));
-    $home = mysqli_real_escape_string($link, trim($home));
     $ZIP = mysqli_real_escape_string($link, trim($ZIP));
     $contact_person = mysqli_real_escape_string($link, trim($contact_person));
 
-    $result = mysqli_query($link, "INSERT INTO edition (edition_name, edition_country, edition_city, edition_street, 
-                          edition_home, edition_ZIP, contact_person) VALUES ('$name', '$country', '$city', '$home', '$ZIP', '$contact_person');");
+    $result = mysqli_query($link, "INSERT INTO edition (edition_name, edition_address, edition_ZIP, contact_person) VALUES ('$name', '$address', '$ZIP', '$contact_person');");
 
     if (!$result){
         die(mysqli_error($link));
