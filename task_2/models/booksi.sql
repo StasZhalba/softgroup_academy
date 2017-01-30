@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 30 2017 г., 09:28
+-- Время создания: Янв 30 2017 г., 13:17
 -- Версия сервера: 10.1.19-MariaDB
 -- Версия PHP: 7.0.13
 
@@ -40,7 +40,7 @@ CREATE TABLE `author` (
 --
 
 INSERT INTO `author` (`author_id`, `author_surname`, `author_name`, `author_year_of_birth`, `author_death`, `author_country`) VALUES
-(1, 'Українка', 'Леся', 1923, 1975, 1);
+(2, 'Українка', 'Леся', 1800, 1816, 1);
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,7 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`book_id`, `book_author`, `book_name`, `book_genre`, `book_pages`, `book_publisher_year`, `book_edition`, `book_receipt`) VALUES
-(1, 1, 'Лісова пісня', 1, 365, 1956, 1, '2002-06-26');
+(2, 2, 'Думи і мрії', 1, 345, 1902, 1, '2015-08-06');
 
 -- --------------------------------------------------------
 
@@ -114,20 +114,17 @@ INSERT INTO `country` (`country_id`, `country_name`) VALUES
 CREATE TABLE `edition` (
   `edition_id` int(11) NOT NULL,
   `edition_name` varchar(30) NOT NULL,
-  `edition_country` int(11) NOT NULL,
-  `edition_city` int(11) NOT NULL,
-  `edition_street` varchar(25) NOT NULL,
-  `edition_home` varchar(10) NOT NULL,
+  `edition_address` varchar(50) NOT NULL,
   `edition_ZIP` int(5) NOT NULL,
-  `contact_person` int(11) NOT NULL
+  `contact_person` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `edition`
 --
 
-INSERT INTO `edition` (`edition_id`, `edition_name`, `edition_country`, `edition_city`, `edition_street`, `edition_home`, `edition_ZIP`, `contact_person`) VALUES
-(1, 'Море', 1, 2, 'Головна', '121', 22543, 1);
+INSERT INTO `edition` (`edition_id`, `edition_name`, `edition_address`, `edition_ZIP`, `contact_person`) VALUES
+(1, 'Море', 'jkjfk fdk jdfj k', 22543, 'Stas Zhalba');
 
 -- --------------------------------------------------------
 
@@ -227,12 +224,12 @@ ALTER TABLE `person`
 -- AUTO_INCREMENT для таблицы `author`
 --
 ALTER TABLE `author`
-  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `city`
 --
@@ -247,7 +244,7 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT для таблицы `edition`
 --
 ALTER TABLE `edition`
-  MODIFY `edition_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `edition_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `genre`
 --
