@@ -6,12 +6,8 @@
  * Time: 16:06
  */
 
-require_once ('models/author.php');
-require_once ('models/book.php');
-require_once ('models/genre.php');
-require_once ('models/edition.php');
-require_once ('models/country.php');
 require_once ('database.php');
+require_once ('models/DB.php');
 
 
 $link = db_connect();
@@ -21,6 +17,9 @@ function header_block(){
     echo '<a href="index.php?object=author"> Автори </a>';
     echo '<a href="index.php?object=edition"> Видавництва </a><br>';
 }
+
+$db = new DB();
+var_dump($db->select($link, '*', 'book'));
 
 function book_block(){
 

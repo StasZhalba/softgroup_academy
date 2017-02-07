@@ -36,12 +36,41 @@ function delete_book($link, $id){
     }
 }
 
-function books_all($link){
-    if ($result = mysqli_query($link, 'SELECT book.book_id, author.author_id, author.author_surname, author.author_name, book.book_name, genre.genre_name, 
-                          book.book_pages, book.book_publisher_year, edition.edition_id, edition.edition_name, book.book_receipt FROM book
+function books_all($link, $sort){
+    $query = "SELECT book.book_id, author.author_id, author.author_surname, author.author_name, 
+book.book_name, genre.genre_name, book.book_pages, book.book_publisher_year, edition.edition_id, edition.edition_name, 
+book.book_receipt FROM book
                           INNER JOIN author ON book.book_author=author.author_id
                           INNER JOIN genre ON book.book_genre=genre.genre_id
-                          INNER JOIN edition ON book.book_edition=edition.edition_id;')){
+                          INNER JOIN edition ON book.book_edition=edition.edition_id ";
+
+
+    switch ($sort){
+        case 1:
+            $query .= "ORDER BY author.author_name";
+            break;
+        case 2:
+            $query .= "ORDER BY book.book_name";
+            break;
+        case 3:
+            $query .= "ORDER BY genre.genre_name";
+            break;
+        case 4:
+            $query .= "ORDER BY book.book_pages";
+            break;
+        case 5:
+            $query .= "ORDER BY book.book_publisher_year";
+            break;
+        case 6:
+            $query .= "ORDER BY edition.edition_name";
+            break;
+        case 7:
+            $query .= "ORDER BY book.book_receipt";
+        default:
+
+    }
+
+    if ($result = mysqli_query($link, $query)){
         $books = array();
         while ($row = mysqli_fetch_assoc($result)){
             $books[] = $row;
