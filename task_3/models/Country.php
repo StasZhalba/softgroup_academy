@@ -6,7 +6,7 @@
  * Time: 9:51
  */
 
-class Country{
+class Country extends DB{
 
     public function city_all(){
         $mysql = new mysqli($this->host, $this->user, $this->password, $this->dbName);
