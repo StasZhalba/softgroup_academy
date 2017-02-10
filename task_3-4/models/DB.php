@@ -5,26 +5,27 @@
  * Date: 05.02.2017
  * Time: 17:51
  */
+include '../config/DBConfig.php';
 
 
+class DB extends DBConfig {
 
-class DB{
+    protected $databaseName;
+    protected $hostName;
+    protected $userName;
+    protected $passCode;
 
-    protected $host, $user, $password, $dbName;
+    function DB(){
+        $dbPara = new DBConfig();
+        $this->databaseName = $dbPara->dbName;
+        $this->hostName = $dbPara->serverName;
+        $this->userName = $dbPara->userName;
+        $this->passCode = $dbPara->passCode;
+    }
 
-    /**
-     * DB constructor.
-     * @param $host
-     * @param $user
-     * @param $password
-     * @param $db
-     */
-    public function __construct($dbInfo)
-    {
-        $this->host = $dbInfo['host'];
-        $this->user = $dbInfo['user'];
-        $this->password = $dbInfo['password'];
-        $this->dbName = $dbInfo['dbName'];
+    public function DBConnection(){
+        $mysql = new mysqli($this->hostName, $this->userName, $this->passCode, $this->databaseName);
+        return $mysql;
     }
 
 
@@ -34,12 +35,10 @@ class DB{
         if ($where != null) $sql .= ' WHERE ' . $where;
         if ($order != null) $sql .= 'ORDER BY ' . $order;
 
+        $db = $this->DBConnection();
+        $query = $db->query($sql);
+        $db->close();
 
-
-        $mysql = new mysqli($this->host, $this->user, $this->password, $this->dbName);
-
-        $query = $mysql->query($sql);
-        $mysql->close();
         if ($query){
             while ($row = mysqli_fetch_assoc($query)){
                 $fetched[] = $row;
