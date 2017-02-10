@@ -18,8 +18,7 @@ function header_block(){
     echo '<a href="index.php?object=edition"> Видавництва </a><br>';
 }
 
-$db = new DB();
-var_dump($db->select($link, '*', 'book'));
+
 
 function book_block(){
 
