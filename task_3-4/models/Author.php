@@ -24,9 +24,8 @@ class Author extends DB{
      * @param $yearOfDeath
      * @param $country
      */
-    public function __construct($dbInfo, $surname, $name, $yearOfBirth, $country, $yearOfDeath = null)
+    public function __construct($surname, $name, $yearOfBirth, $country, $yearOfDeath = null)
     {
-        parent::__construct($dbInfo);
         $this->surname = $surname;
         $this->name = $name;
         $this->yearOfBirth = $yearOfBirth;
@@ -37,7 +36,8 @@ class Author extends DB{
 
     function authors_all(){
 
-        $mysql = new mysqli($this->host, $this->user, $this->password, $this->dbName);
+        $db = new DB();
+        $mysql = $db->DBConnection();
 
         if ($result = $mysql->query('SELECT author.author_id, author.author_surname, author.author_name, 
                                   author.author_year_of_birth, author.author_death, country.country_name 

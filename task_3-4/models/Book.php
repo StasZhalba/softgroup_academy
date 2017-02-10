@@ -15,9 +15,8 @@ class Book extends DB {
     protected $edition;
     protected $receipt;
 
-    public function __construct($dbInfo, $bookInfo)
+    public function __construct($bookInfo)
     {
-        parent::__construct($dbInfo);
         $this->authorName = $bookInfo['authorName'];
         $this->bookName = $bookInfo['bookName'];
         $this->genre = $bookInfo['genre'];
@@ -61,7 +60,8 @@ book.book_receipt FROM book
 
         }
 
-        $mysql = new mysqli($this->host, $this->user, $this->password, $this->dbName);
+        $db = new DB();
+        $mysql = $db->DBConnection();
 
 
         if ($result = $mysql->query($query)){
@@ -77,7 +77,8 @@ book.book_receipt FROM book
     }
 
     public function get_books_author($id){
-        $mysql = new mysqli($this->host, $this->user, $this->password, $this->dbName);
+        $db = new DB();
+        $mysql = $db->DBConnection();
 
         if ($result = $mysql->query("SELECT book.book_id, author.author_id, author.author_surname, author.author_name, book.book_name, genre.genre_name, 
                           book.book_pages, book.book_publisher_year, edition.edition_id, edition.edition_name, book.book_receipt FROM book
@@ -97,7 +98,8 @@ book.book_receipt FROM book
 
     public function get_books_edition($id){
 
-        $mysql = new mysqli($this->host, $this->user, $this->password, $this->dbName);
+        $db = new DB();
+        $mysql = $db->DBConnection();
 
         if ($result = $mysql->query("SELECT book.book_id, author.author_id, author.author_surname, author.author_name, book.book_name, genre.genre_name, 
                           book.book_pages, book.book_publisher_year, edition.edition_id, edition.edition_name, book.book_receipt FROM book
@@ -147,7 +149,8 @@ book.book_receipt FROM book
                 $search_query .= " WHERE $where_clause";
             }
 
-            $mysql = new mysqli($this->host, $this->user, $this->password, $this->dbName);
+            $db = new DB();
+            $mysql = $db->DBConnection();
 
             if ($result = $mysql->query($search_query)) {
                 $books = array();

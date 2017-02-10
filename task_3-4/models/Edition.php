@@ -12,9 +12,8 @@ class Edition extends DB{
     protected $ZIP;
     protected $contactPerson;
 
-    public function __construct($dbInfo, $editionInfo)
+    public function __construct($editionInfo)
     {
-        parent::__construct($dbInfo);
         $this->name = $editionInfo['name'];
         $this->address = $editionInfo['address'];
         $this->ZIP = $editionInfo['ZIP'];

@@ -9,7 +9,8 @@
 class Country extends DB{
 
     public function city_all(){
-        $mysql = new mysqli($this->host, $this->user, $this->password, $this->dbName);
+        $db = new DB();
+        $mysql = $db->DBConnection();
 
         if ($result = $mysql->query("SELECT city.city_id, city.city_name, country.country_name FROM city 
                                         INNER JOIN country ON city.city_country=country.country_id;")){
