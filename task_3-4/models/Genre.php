@@ -6,6 +6,7 @@
  * Time: 9:59
  */
 
-class Genre extends DB{
-
+class Genre extends AbstractModel {
+    protected static $table = 'genre';
+    protected static $tableID = 'genreId';
 }

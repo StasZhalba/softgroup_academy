@@ -16,18 +16,18 @@ echo '<tr>
         <td>Країна</td>
         <td></td>
       </tr>';
-foreach ($authors as $author) {
+foreach ($items as $author) {
     echo '<tr>';
-    echo '<td>' . $author['author_surname'] . '</td>';
-    echo '<td>'. $author['author_name'] .'</td>';
-    echo '<td>'. $author['author_year_of_birth'] .'</td>';
-    echo '<td>'. $author['author_death'] .'</td>';
-    echo '<td>'. $author['country_name'] .'</td>';
-    echo '<td><a href="index.php?object=author&action=delete&id='. $author['author_id'] .'">Видалити</a></td>';
+    echo '<td>' . $author->surname . '</td>';
+    echo '<td>'. $author->name .'</td>';
+    echo '<td>'. $author->yearOfBirth .'</td>';
+    echo '<td>'. $author->death .'</td>';
+    echo '<td>'. $author->countryName .'</td>';
+    echo '<td><a href="/site/softgroup_academy/task_3-4/author/delete?id='. $author->id .'">Видалити</a></td>';
     echo '</tr>';
 }
 
-echo '</table>'
+echo '</table><br>'
 ?>
 
 <style>

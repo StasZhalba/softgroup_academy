@@ -30,8 +30,8 @@
     <label for="country">Країна</label><br>
     <select id="country" name="country">
         <?php
-        foreach ($countries as $country){
-            echo '<option value="' . $country['country_id'] . '">'. $country['country_name'] . '</option>';
+        foreach ($items as $country){
+            echo '<option value="' . $country->id . '">'. $country->name . '</option>';
         }
         ?>
     </select>

@@ -4,8 +4,8 @@
     <label for="country_city">Країна, місто</label><br>
     <select id="country_city" name="country_city">
         <?php
-        foreach ($cities as $city){
-            echo '<option value="' . $city['city_id'] . '">'. $city['city_name'] . ', ' . $city['country_name'] . '</option>';
+        foreach ($items as $city){
+            echo '<option value="' . $city->id . '">'. $city->name . ', ' . $city->countryName . '</option>';
         }
         ?>
     </select>

@@ -4,27 +4,54 @@
  * User: Stas Jalba
  * Date: 09.02.2017
  * Time: 20:35
+ * @property $id
+ * @property $author
+ * @property $name
+ * @property $genre
+ * @property $pages
+ * @property $publisherYear
+ * @property $edition
+ * @property $receipt
  */
 
-class Book extends DB {
-    protected $authorName;
-    protected $bookName;
-    protected $genre;
-    protected $pages;
-    protected $publisherYear;
-    protected $edition;
-    protected $receipt;
+class Book extends AbstractModel {
 
-    public function __construct($bookInfo)
+    protected static $table = 'book';
+    protected static $tableID = 'bookId';
+    public static $findAuthor = 'bookAuthor';
+    public static $findEdition = 'bookEdition';
+
+    public static function bookAll($sort = 0)
     {
-        $this->authorName = $bookInfo['authorName'];
-        $this->bookName = $bookInfo['bookName'];
-        $this->genre = $bookInfo['genre'];
-        $this->pages = $bookInfo['pages'];
-        $this->publisherYear = $bookInfo['publisherYear'];
-        $this->edition = $bookInfo['edition'];
-        $this->receipt = $bookInfo['receipt'];
+        $db = new DB();
+        $db->setClassName(get_called_class());
+        $sql = 'SELECT book.bookId, author.authorId, author.authorSurname, author.authorName, 
+                  book.bookName, genre.genreName, book.bookPages, book.bookPublisherYear, 
+                  edition.editionId, edition.editionName, book.bookReceipt 
+                  FROM book
+                          INNER JOIN author ON book.bookAuthor=author.authorId
+                          INNER JOIN genre ON book.bookGenre=genre.genreId
+                          INNER JOIN edition ON book.bookEdition=edition.editionId ';
+        return $db->query($sql);
     }
+
+
+
+    public static function findBooks($param, $id)
+    {
+        $sql = "SELECT book.bookId, author.authorId, author.authorSurname, author.authorName, 
+                  book.bookName, genre.genreName, book.bookPages, book.bookPublisherYear, 
+                  edition.editionId, edition.editionName, book.bookReceipt 
+                  FROM book
+                          INNER JOIN author ON book.bookAuthor=author.authorId
+                          INNER JOIN genre ON book.bookGenre=genre.genreId
+                          INNER JOIN edition ON book.bookEdition=edition.editionId WHERE ";
+        $sql .= self::$table . '.' . $param . '=:id';
+        $db = new DB();
+        $db->setClassName(get_called_class());
+        return $db->query($sql, ['id' => $id]);
+    }
+
 
     public function books_all($sort = 0){
         $query = "SELECT book.book_id, author.author_id, author.author_surname, author.author_name, 

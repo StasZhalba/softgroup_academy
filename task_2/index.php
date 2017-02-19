@@ -137,7 +137,7 @@ if ($object == "book"){
         $authors = authors_all();
         $genres = genres_all();
         $editions = edition_all();
-        include ('view/book_admin.php');
+        include ('views/book_admin.php');
     }
 }*/
 

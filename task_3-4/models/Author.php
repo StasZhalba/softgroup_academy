@@ -4,56 +4,34 @@
  * User: Stas Jalba
  * Date: 09.02.2017
  * Time: 19:56
+ * @property $id
+ * @property $surname
+ * @property $name
+ * @property $yearOfBirth
+ * @property $death
+ * @property $countryName
  */
 
-require_once ('DB.php');
 
 
-class Author extends DB{
-    protected $surname;
-    protected $name;
-    protected $yearOfBirth;
-    protected $yearOfDeath;
-    protected $country;
 
-    /**
-     * Author constructor.
-     * @param $surname
-     * @param $name
-     * @param $yearOfBirth
-     * @param $yearOfDeath
-     * @param $country
-     */
-    public function __construct($surname, $name, $yearOfBirth, $country, $yearOfDeath = null)
-    {
-        $this->surname = $surname;
-        $this->name = $name;
-        $this->yearOfBirth = $yearOfBirth;
-        if ($yearOfDeath != null)
-            $this->yearOfDeath = $yearOfDeath;
-        $this->country = $country;
-    }
+class Author extends AbstractModel {
 
-    function authors_all(){
+    protected static $table = 'author';
+    protected static $tableID = 'authorId';
+
+    public static function authors_all(){
 
         $db = new DB();
-        $mysql = $db->DBConnection();
-
-        if ($result = $mysql->query('SELECT author.author_id, author.author_surname, author.author_name, 
-                                  author.author_year_of_birth, author.author_death, country.country_name 
+        $db->setClassName(get_called_class());
+        $result = $db->query('SELECT author.authorId, author.authorSurname, author.authorName, 
+                                  author.authorYearOfBirth, author.authorDeath, country.countryName 
                                   FROM author 
-                                  INNER JOIN country ON author.author_country=country.country_id
-                                  ORDER BY author_surname, author_name ASC ;')){
-            $authors = array();
-            while ($row = mysqli_fetch_assoc($result)){
-                $authors[] = $row;
-            }
-        }
+                                  INNER JOIN country ON author.authorCountryName=country.countryId;');
 
-        $mysql->close();
-
-        return $authors;
+        return $result;
     }
+
 
 }
 

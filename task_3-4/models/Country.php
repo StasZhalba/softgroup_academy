@@ -6,10 +6,13 @@
  * Time: 9:51
  */
 
-class Country extends DB{
+class Country extends AbstractModel {
+
+    protected static $table = 'country';
+    protected static $tableID = 'countryId';
 
     public function city_all(){
-        $db = new DB();
+        /*$db = new DB();
         $mysql = $db->DBConnection();
 
         if ($result = $mysql->query("SELECT city.city_id, city.city_name, country.country_name FROM city 
@@ -22,6 +25,6 @@ class Country extends DB{
 
         $mysql->close();
 
-        return $cities;
+        return $cities;*/
     }
 }

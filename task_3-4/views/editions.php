@@ -13,12 +13,12 @@ echo '<tr>
         <td>Контактна особа</td>
         <td></td>
       </tr>';
-foreach ($editions as $edition) {
+foreach ($items as $edition) {
     echo '<tr>';
-    echo '<td>' . $edition['edition_name'] . '</td>';
-    echo '<td>'. $edition['edition_address'] . ', ' . $edition['edition_ZIP'] . '</td>';
-    echo '<td>'. $edition['contact_person'] .'</td>';
-    echo '<td><a href="index.php?object=edition&action=delete&id='. $edition['edition_id'] .'">Видалити</a></td>';
+    echo '<td>' . $edition->name . '</td>';
+    echo '<td>'. $edition->address . ', ' . $edition->zip . '</td>';
+    echo '<td>'. $edition->contactPerson .'</td>';
+    echo '<td><a href="/site/softgroup_academy/task_3-4/edition/delete?id='. $edition->id .'">Видалити</a></td>';
     echo '</tr>';
 }
 
