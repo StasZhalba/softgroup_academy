@@ -8,7 +8,7 @@
 ?>
 
 <form method="post">
-    Що шукаєте?
+    Search text?
     <input type="text" id="search" name="search">
-    <input type="submit"  value="Пошук"><br>
+    <input type="submit"  value="Search"><br>
 </form>

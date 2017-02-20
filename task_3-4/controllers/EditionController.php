@@ -10,7 +10,16 @@ class EditionController
 {
     public function actionAll()
     {
-        $editions = Edition::findAll();
+        if (!isset($_GET['sort'])) {
+            $editions = Edition::editionsAll();
+        } else {
+            $sort = $_GET['sort'];
+            if (is_numeric($sort)) {
+                $editions = Edition::editionsAll($sort);
+            } else {
+                $editions = Edition::editionsAll();
+            }
+        }
         $view = new View();
         $view->items = $editions;
         $view->display('editions.php');

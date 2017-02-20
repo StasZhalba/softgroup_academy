@@ -1,10 +1,10 @@
 
 <form method="post">
-    <label for="surname">Прізвище </label><br>
+    <label for="surname">Surname </label><br>
     <input type="text" id="surname" name="surname"><br>
-    <label for="name">І'мя</label><br>
+    <label for="name">Name</label><br>
     <input type="text" id="name" name="name"><br>
-    <label for="year_birth">Рік народження</label><br>
+    <label for="year_birth">Date of birth</label><br>
     <select id="year_birth" name="year_birth">
         <script>
             var myDate = new Date();
@@ -15,7 +15,7 @@
         </script>
     </select>
     <br>
-    <label for="year_death">Рік смерті(може бути пусто)</label><br>
+    <label for="year_death">Date of death(null)</label><br>
     <select id="year_death" name="year_death">
         <script>
             var myDate = new Date();
@@ -27,7 +27,7 @@
         </script>
     </select>
     <br>
-    <label for="country">Країна</label><br>
+    <label for="country">Country</label><br>
     <select id="country" name="country">
         <?php
         foreach ($items as $country){
@@ -35,7 +35,7 @@
         }
         ?>
     </select>
-    <input type="submit" name="submit" value="Добавити">
+    <input type="submit" name="submit" value="Save">
     <br>
     <br>
 

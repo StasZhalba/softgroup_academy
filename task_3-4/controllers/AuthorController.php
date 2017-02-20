@@ -11,7 +11,16 @@ class AuthorController{
 
     public function actionAll()
     {
-        $authors = Author::authors_all();
+        if (!isset($_GET['sort'])) {
+            $authors = Author::authorsAll();
+        } else {
+            $sort = $_GET['sort'];
+            if (is_numeric($sort)) {
+                $authors = Author::authorsAll($sort);
+            } else {
+                $authors = Author::authorsAll();
+            }
+        }
         $view = new View();
         $view->items = $authors;
         $view->display('authors.php');

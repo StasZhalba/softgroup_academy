@@ -10,10 +10,31 @@ class BookController
 {
     public function actionAll()
     {
-        $books = Book::bookAll();
+        if (!isset($_GET['sort'])) {
+            $books = Book::bookAll();
+        } else {
+            $sort = $_GET['sort'];
+            if (is_numeric($sort)) {
+                $books = Book::bookAll($sort);
+            } else {
+                $books = Book::bookAll();
+            }
+        }
         $view = new View();
         $view->items = $books;
         $view->display('books.php');
+    }
+
+    public function actionSearch()
+    {
+        $view = new View();
+        $view->display('book_search.php');
+        echo '<a href="/site/softgroup_academy/task_3-4/book/all">All books</a><br>';
+        if(!empty($_POST)) {
+            $textSearch = $_POST['search'];
+            $view->items = Book::searchBook($textSearch);
+            $view->display('books.php');
+        }
     }
 
     public function actionAdd()
@@ -34,7 +55,6 @@ class BookController
             $book->edition = intval($_POST['edition']);
             $book->receipt = $_POST['book_receipt'];
             $book->save();
-            var_dump($book);
         }
     }
 
@@ -73,4 +93,6 @@ class BookController
             }
         }
     }
+
+
 }
