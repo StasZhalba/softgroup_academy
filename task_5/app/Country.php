@@ -16,4 +16,8 @@ class Country extends Model
     public function cities(){
         return $this->hasMany('App\City', 'countryId');
     }
+
+    public function authors(){
+        return $this->hasMany('App\Author', 'countryId');
+    }
 }
