@@ -8,8 +8,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use DB;
 
-class FirstController
+class FirstController extends Controller
 {
+
+    public function show(){
+        //DB::delete('DELETE FROM `countries` WHERE `id`=?', ['7']);
+        //$result = DB::connection()->getPdo()->lastInsertId();
+        $array = DB::select("SELECT * FROM `countries` ");
+        //DB::insert("INSERT INTO `countries` (`name`) VALUES (?)", ['Russia']);
+        dump($array);
+    }
 
 }

@@ -15,6 +15,9 @@ class Mymiddleware
      */
     public function handle($request, Closure $next)
     {
+        if ($request->route('id') != '1'){
+            return redirect()->route('home');
+        }
         return $next($request);
     }
 }

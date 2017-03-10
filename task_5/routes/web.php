@@ -11,6 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::group(['prefix' => 'task_5'], function () {
+    Route::get('/', ['as' => 'home', 'uses' => 'IndexController@show']);
+
+    Route::get('page/create', function (){
+        return redirect()->route('article', array('id' => 23));
+    });
+
+    Route::get('page/{id}', function (){
+        echo 'task_5/page/edit';
+    });
+
+    Route::get('/db', ['uses' => 'Core@getCountries', 'as' => 'db']);
+
+    Route::get('/about/{id}', ['uses' => 'FirstController@show', 'as' => 'about', 'middleware' => 'mymiddle']);
+
+
 });
+
