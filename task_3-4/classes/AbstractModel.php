@@ -136,11 +136,4 @@ abstract class AbstractModel
         $db->execute($sql, ['id' => $this->data['id']]);
     }
 
-    /*public static function delete($id)
-    {
-        $sql = 'DELETE FROM ' . static::$table . '
-            WHERE ' . static::$tableID . '=:id';
-        $db = new DB();
-        $db->execute($sql, ['id' => $id]);
-    }*/
 }

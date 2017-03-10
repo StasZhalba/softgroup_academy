@@ -9,9 +9,9 @@
 require_once __DIR__ . '/autoload.php';
 
 function header_block(){
-    echo '<a href="/site/softgroup_academy/task_3-4/book/all"> Books </a>';
-    echo '<a href="/site/softgroup_academy/task_3-4/author/all"> Authors </a>';
-    echo '<a href="/site/softgroup_academy/task_3-4/edition/all"> Editions </a><br>';
+    echo '<a href="/softgroup_academy/task_3-4/book/all"> Books </a>';
+    echo '<a href="/softgroup_academy/task_3-4/author/all"> Authors </a>';
+    echo '<a href="/softgroup_academy/task_3-4/edition/all"> Editions </a><br>';
 }
 
 header_block();
