@@ -10,6 +10,6 @@ class Person extends Model
     protected $table = 'persons';
 
     public function editions(){
-        return $this->hasMany('App\Edition', 'personId');
+        return $this->hasMany('App\Edition', 'personId', 'id');
     }
 }

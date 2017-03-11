@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
 use App\City;
+use App\Edition;
+use App\Person;
 use Illuminate\Http\Request;
 use DB;
 use App\Country;
@@ -25,8 +28,5 @@ class Core extends Controller
             $city->save();
         }*/
 
-        $city = City::find(1);
-        $city->name = 'Lviv';
-        echo $city->name;
     }
 }

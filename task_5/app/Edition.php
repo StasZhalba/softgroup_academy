@@ -10,7 +10,7 @@ class Edition extends Model
     protected $table = 'editions';
 
     public function person(){
-        return $this->belongsTo('App\Person', 'id');
+        return $this->belongsTo('App\Person', 'personId');
     }
 
     public function books(){

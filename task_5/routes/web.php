@@ -26,6 +26,10 @@ Route::group(['prefix' => 'task_5'], function () {
 
     Route::get('/db', ['uses' => 'Core@getCountries', 'as' => 'db']);
 
+    Route::get('/edition', ['uses' => 'EditionController@getEditions', 'as' => 'editionAll']);
+
+    Route::get('/edition/sort/{sort?}', ['uses' => 'EditionController@getEditions', 'as' => 'editionAll']);
+
     Route::get('/about/{id}', ['uses' => 'FirstController@show', 'as' => 'about', 'middleware' => 'mymiddle']);
 
 
