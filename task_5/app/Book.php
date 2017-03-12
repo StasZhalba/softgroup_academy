@@ -17,7 +17,8 @@ class Book extends Model
         return $this->belongsTo('App\Edition', 'id');
     }
 
-    public function genre(){
+    public function genre()
+    {
         return $this->belongsTo('App\Genre', 'id');
     }
 

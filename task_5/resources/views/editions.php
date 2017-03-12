@@ -8,10 +8,10 @@
 
 echo '<table>';
 echo '<tr>
-        <td><a href="/site/softgroup_academy/task_3-4/edition/all?sort=1">Name</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/edition/all?sort=2">Address</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/edition/all?sort=3">ZIP</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/edition/all?sort=4">Contact person</a></td>
+        <td><a href=" ' . route('editionAllSort', array('sort' => '1')) . ' ">Name</a></td>
+        <td><a href=" ' . route('editionAllSort', array('sort' => '2')) . ' ">Address</a></td>
+        <td><a href=" ' . route('editionAllSort', array('sort' => '3')) . ' ">ZIP</a></td>
+        <td><a href=" ' . route('editionAllSort', array('sort' => '4')) . ' ">Contact person</a></td>
         <td></td>
       </tr>';
 foreach ($items as $edition) {

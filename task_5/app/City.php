@@ -11,7 +11,7 @@ class City extends Model
     protected $table = 'cities';
 
     public function country(){
-        return $this->belongsTo('App\Country', 'id');
+        return $this->belongsTo('App\Country', 'countryId');
     }
 
     /*public function getNameAttribute($value){

@@ -14,25 +14,25 @@
 
 echo '<table>';
 echo '<tr>
-        <td><a href="/site/softgroup_academy/task_3-4/book/all?sort=1">Author</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/book/all?sort=2">Book name</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/book/all?sort=3">Genre</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/book/all?sort=4">Pages</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/book/all?sort=5">Publisher year</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/book/all?sort=6">Edition</a></td>
-        <td><a href="/site/softgroup_academy/task_3-4/book/all?sort=7">Receipt</a></td>
+        <td><a href=" ' . route('booksAll', array('sort' => 1)) . ' ">Author</a></td>
+        <td><a href=" ' . route('booksAll', array('sort' => 2)) . ' ">Book name</a></td>
+        <td><a href=" ' . route('booksAll', array('sort' => 3)) . ' ">Genre</a></td>
+        <td><a href=" ' . route('booksAll', array('sort' => 4)) . ' ">Pages</a></td>
+        <td><a href=" ' . route('booksAll', array('sort' => 5)) . ' ">Publisher year</a></td>
+        <td><a href=" ' . route('booksAll', array('sort' => 6)) . ' ">Edition</a></td>
+        <td><a href=" ' . route('booksAll', array('sort' => 7)) . ' ">Receipt</a></td>
         <td></td>
       </tr>';
 foreach ($items as $book) {
     echo '<tr>';
-    echo '<td><a href="/site/softgroup_academy/task_3-4/book/author?id='. $book->authorId . '">' .$book->authorName . ' ' . $book->authorSurname .'</a></td>';
+    echo '<td><a href=" ' . route('booksWhere', array('where' => 'authorId', 'id' => $book->author->id)) . ' ">' .$book->author->name . ' ' . $book->author->surname .'</a></td>';
     echo '<td>'. $book->name .'</td>';
-    echo '<td>'. $book->genreName    .'</td>';
+    echo '<td>'. $book->genre->name    .'</td>';
     echo '<td>'. $book->pages .'</td>';
     echo '<td>'. $book->publisherYear .'</td>';
-    echo '<td><a href="/site/softgroup_academy/task_3-4/book/edition?id='. $book->editionId . '">' . $book->editionName .'</a></td>';
+    echo '<td><a href=" ' . route('booksWhere', array('where' => 'editionId', 'id' => $book->editionId)) . ' ">' . $book->edition->name .'</a></td>';
     echo '<td>'. $book->receipt .'</td>';
-    echo '<td><a href="/site/softgroup_academy/task_3-4/book/delete?id='. $book->id .'">Delete</a></td>';
+    echo '<td><a href="'. route('deleteBook', array('id' => $book->id)).'">Delete</a></td>';
     echo '</tr>';
 }
 

@@ -10,7 +10,7 @@ class Author extends Model
     protected $table = 'authors';
 
     public function country(){
-        return $this->belongsTo('App\Country', 'id');
+        return $this->belongsTo('App\Country', 'countryId');
     }
 
     public function editions(){

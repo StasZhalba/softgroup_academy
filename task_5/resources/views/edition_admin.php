@@ -1,11 +1,11 @@
-<form method="post">
+<form method="post" action="<?php route('editionAdd')?>">
     <label for="name">Name</label><br>
     <input type="text" id="name" name="name"><br>
     <label for="country_city">Country, city</label><br>
     <select id="country_city" name="country_city">
         <?php
         foreach ($items as $city){
-            echo '<option value="' . $city->id . '">'. $city->name . ', ' . $city->countryName . '</option>';
+            echo '<option value="' . $city->id . '">'. $city->name . ', ' . $city->country->name . '</option>';
         }
         ?>
     </select>
