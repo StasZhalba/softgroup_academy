@@ -1,3 +1,4 @@
 <h1><?php echo $title; ?></h1>
-<a href="<?php echo route('home');?>">Home</a>
-<a href="<?php echo route('about', array('id' => 1));?>">About</a>
+<a href="<?php echo route('booksAll');?>">Books</a>
+<a href="<?php echo route('authorsAll');?>">Authors</a>
+<a href="<?php echo route('editionAll');?>">Editions</a>

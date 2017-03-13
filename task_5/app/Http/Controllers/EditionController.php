@@ -38,7 +38,11 @@ class EditionController extends Controller
     public function addEdition(Request $request){
         $city = City::all();
         if ($request->isMethod('post')){
-            //echo $request->input('name');
+            $edition = new Edition;
+            $edition->name = $request->name;
+            $edition->address = $request->country_city . ', ' . $request->street . ', ' . $request->home;
+            $edition->zip = $request->ZIP;
+            $edition->personId = $request->contact_person;
         }
         return view('edition_admin')->with('items', $city);
     }

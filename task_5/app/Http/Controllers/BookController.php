@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
 use App\Book;
+use App\Genre;
 use Illuminate\Http\Request;
 use DB;
 
@@ -77,5 +79,22 @@ class BookController extends Controller
     public function deleteBook($id){
         Book::destroy($id);
         return redirect()->route('bookAll');
+    }
+
+    public function addAuthor(Request $request){
+        $authors = Author::all();
+        $genres = Genre::all();
+        $editions = Author::all();
+        if ($request->isMethod('post')){
+            $book = new Book();
+            $book->authorId = $request->authors;
+            $book->name = $request->book_name;
+            $book->genreId = $request->genre;
+            $book->pages = $request->pages;
+            $book->publisherYear = $request->publisher_year;
+            $book->edtionId = $request->edition;
+            $book->receipt = $request->book_receipt;
+        }
+        return view('book_admin')->with(['authors' => $authors, 'genres' => $genres, 'editions' => $editions]);
     }
 }

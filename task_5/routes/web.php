@@ -44,7 +44,6 @@ Route::group(['prefix' => '/task_5'], function () {
     Route::get('/edition', ['uses' => 'EditionController@getEditions', 'as' => 'editionAll']);
     Route::get('/edition/delete/{id}', ['uses' => 'EditionController@deleteAuthor', 'as' => 'deleteEdition']);
     Route::get('/edition/sort/{sort?}', ['uses' => 'EditionController@getEditions', 'as' => 'editionAllSort']);
-    //Route::get('/edition/add', 'EditionController@addEdition');
     Route::match(['get', 'post'], '/edition/add', ['uses' => 'EditionController@addEdition', 'as' => 'editionAdd']);
     Route::get('/about/{id}', ['uses' => 'FirstController@show', 'as' => 'about', 'middleware' => 'mymiddle']);
 

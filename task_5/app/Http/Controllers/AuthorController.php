@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Country;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -34,5 +35,18 @@ class AuthorController extends Controller
     public function deleteAuthor($id){
         Author::destroy($id);
         return redirect()->route('authorsAll');
+    }
+
+    public function addAuthor(Request $request){
+        $country = Country::all();
+        if ($request->isMethod('post')){
+            $author = new Author();
+            $author->surname = $request->surname;
+            $author->name = $request->name;
+            $author->yearOfBirth = $request->year_birth;
+            $author->yearOfDeath = $request->year_death;
+            $author->countryId = $request->country;
+        }
+        return view('author_admin')->with('items', $country);
     }
 }
