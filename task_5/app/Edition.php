@@ -8,6 +8,7 @@ class Edition extends Model
 {
     //
     protected $table = 'editions';
+    public $timestamps = false;
 
     public function person(){
         return $this->belongsTo('App\Person', 'personId');

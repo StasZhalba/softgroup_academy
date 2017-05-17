@@ -12,6 +12,8 @@
 */
 
 
+use Illuminate\Http\Request;
+
 Route::post('/task_5/comments', function (){
     print_r($_POST);
 });
@@ -47,6 +49,19 @@ Route::group(['prefix' => '/task_5'], function () {
     Route::match(['get', 'post'], '/edition/add', ['uses' => 'EditionController@addEdition', 'as' => 'editionAdd']);
     Route::get('/about/{id}', ['uses' => 'FirstController@show', 'as' => 'about', 'middleware' => 'mymiddle']);
 
+    //Route::match(['get', 'post'], '/upload', ['uses' => 'EditionController@upload', 'as' => 'upload']);
+
+    Route::get('upload', 'EditionController@index');
+    Route::post('store', 'ImageController@store');
+    Route::get('show', 'ImageController@show');
+
+    Route::get('rating', 'RestaurantController@addRatings');
+    Route::get('restaurant/meal', 'RestaurantController@addMeals');
+    Route::get('restaurant/meals', 'RestaurantController@getMeals');
+
+    Route::get('cuisine/add', 'CuisineController@addCuisine');
+    Route::get('meal/add', 'MealController@addMeal');
+    Route::post('meal/save', 'MealController@saveMeal');
 
 });
 

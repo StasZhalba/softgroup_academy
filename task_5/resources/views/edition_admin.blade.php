@@ -1,4 +1,5 @@
 <form method="post" action="<?php route('editionAdd')?>">
+    {{ csrf_field() }}
     <label for="name">Name</label><br>
     <input type="text" id="name" name="name"><br>
     <label for="country_city">Country, city</label><br>

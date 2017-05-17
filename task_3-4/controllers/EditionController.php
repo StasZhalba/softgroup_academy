@@ -30,7 +30,7 @@ class EditionController
     {
         $view = new View();
         $view->items = City::cityAll();
-        $view->display('edition_admin.php');
+        $view->display('edition_admin.blade.php');
         echo '<a href="/site/softgroup_academy/task_3-4/edition/all">All editions</a><br>';
         if (!empty($_POST)){
             $edition = new Edition();
